@@ -43,7 +43,7 @@ router.get('/rate', async (req, res) => {
     });
 
     // TODO: Belom bener nih gapaham make api nya
-    const response = await fetch(
+    const compute = await fetch(
       'https://fhavprrg1h.execute-api.us-east-1.amazonaws.com/default/computeRate',
       { 
         method: 'POST',
@@ -52,7 +52,7 @@ router.get('/rate', async (req, res) => {
       }
     )
 
-    const rate = await response.json();
+    const rate = await compute.json();
   
     res.json({...req.query, rate: `${rate.result}/${req.query.unit}`});
   }
@@ -74,7 +74,7 @@ router.get('/total', async (req, res) => {
       attributes: ['value'], 
     });
 
-    const response = await fetch(
+    const compute = await fetch(
       'https://gjhy96vkp8.execute-api.us-east-1.amazonaws.com/default/computeTotal',
       { 
         method: 'POST',
@@ -82,7 +82,7 @@ router.get('/total', async (req, res) => {
         body: JSON.stringify({ values: transactions })
       }
     );
-    const total = await response.json();
+    const total = await compute.json();
 
     res.json({...req.query, total: total.result });
   }
