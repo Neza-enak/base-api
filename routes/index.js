@@ -16,7 +16,7 @@ router.post('/transaction', async (req, res) => {
   try {
 
     const validate = TransactionValidator.validate(req.body);
-    if (validate.error) res.status(400).send({ message: validate.error.message });
+    if (validate.error) return res.status(400).send({ message: validate.error.message });
   
     const transaction = await db.Transaction.create(req.body);
   
@@ -29,7 +29,7 @@ router.post('/transaction', async (req, res) => {
 router.get('/rate', async (req, res) => {
   try {
     const validate = RateValidator.validate(req.query);
-    if (validate.error) res.status(400).send({ message: validate.error.message });
+    if (validate.error) return res.status(400).send({ message: validate.error.message });
 
     const transactions = await db.Transaction.findAll({ 
       where: {
@@ -64,7 +64,7 @@ router.get('/rate', async (req, res) => {
 router.get('/total', async (req, res) => {
   try {
     const validate = TotalValidator.validate(req.query);
-    if (validate.error) res.status(400).send({ message: validate.error.message });
+    if (validate.error) return res.status(400).send({ message: validate.error.message });
 
     const transactions = await db.Transaction.findAll({ 
       where: {
