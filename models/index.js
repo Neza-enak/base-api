@@ -1,10 +1,12 @@
 const DBConfig = require('../db.config.js');
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize(DBConfig.DB, DBConfig.USER, DBConfig.PASSWORD, {
-  host: DBConfig.HOST,
+const sequelize = new Sequelize(DBConfig.DB, null, null, {
+  replication: {
+    read: { host: DBConfig.HOST_REPLICA, username: DBConfig.USER, password: DBConfig.PASSWORD },
+    write: { host: DBConfig.HOST_MAIN, username: DBConfig.USER, password: DBConfig.PASSWORD },
+  },
   dialect: DBConfig.dialect,
-  pool: DBConfig.pool,
   logging: false
 });
 
